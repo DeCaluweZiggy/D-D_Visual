@@ -7,6 +7,7 @@ namespace Ziggy_D_D_Visuals.core.Enitities
         public byte Level { get; private set; }
         public  TotalStats TotalStats { get; set; }
         public Condition Condition { get; set; }
+        public int RessurectionPoints { get; set; }
         public byte TotalMoveSteps { get; private set; }
 
         // list van items
@@ -31,6 +32,11 @@ namespace Ziggy_D_D_Visuals.core.Enitities
             {
                 HeroIsDeath();
             }
+        }
+
+     public void ResurrectHero()
+        {
+
         }
 
         private void HeroIsDeath()
