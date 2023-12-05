@@ -5,7 +5,7 @@ namespace Ziggy_D_D_Visuals.core.Enitities
     public class Hero : Character
     {
         public byte Level { get; private set; }
-        public  TotalStats TotalStats { get; set; }
+        public TotalStats TotalStats { get; set; }
         public Condition Condition { get; set; }
         public int RessurectionPoints { get; set; }
         public byte TotalMoveSteps { get; private set; }
@@ -15,7 +15,7 @@ namespace Ziggy_D_D_Visuals.core.Enitities
         public Hero(string nameCharacter, int baseArmor, int baseAttack, int baseHealth, byte totalMoveSteps) : base(nameCharacter, baseArmor, baseAttack, baseHealth)
         {
             TotalMoveSteps = totalMoveSteps;
-            Condition= new Condition();
+            Condition = new Condition();
             TotalStats = new TotalStats(baseHealth, baseAttack, baseArmor);
         }
 
@@ -26,17 +26,30 @@ namespace Ziggy_D_D_Visuals.core.Enitities
 
         public override void ReceiveDamageWithArmor(int damage)
         {
-            if (damage < 0 ) throw new ArgumentOutOfRangeException("Damage","Damage can't be less then zero");
+            if (damage < 0) throw new ArgumentOutOfRangeException("Damage", "Damage can't be less then zero");
             TotalStats.TotalHealth -= damage;
-            if (TotalStats.TotalHealth < 0 )
+            if (TotalStats.TotalHealth < 0)
             {
                 HeroIsDeath();
             }
         }
 
-     public void ResurrectHero()
+        public void RaiseAttack(int amountToRaise)
         {
+            if (amountToRaise <= 0 ) throw new ArgumentOutOfRangeException("Attack", "It can't be equal or less then zero");
+            TotalStats.TotalAttack += amountToRaise;
+        }
 
+        public void RaiseArmor(int amountToRaise)
+        {
+            if (amountToRaise <= 0) throw new ArgumentOutOfRangeException("Armor", "It can't be equal or less then zero");
+            TotalStats.TotalArmor += amountToRaise;
+        }
+
+        public void ResurrectHero()
+        {
+            TotalStats.TotalHealth = RessurectionPoints;
+            Condition = new Condition();
         }
 
         private void HeroIsDeath()
